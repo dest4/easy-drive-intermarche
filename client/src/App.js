@@ -81,7 +81,7 @@ Item.propTypes = {
 	amount: PropTypes.number.isRequired,
 }
 
-const SERVER_PREFIX = '/api/';
+const SERVER_PREFIX = '/intermarche/api/';
 
 class App extends Component {
 	constructor() {

@@ -295,17 +295,17 @@ if (WEBMIN_DEV) {
 	// /api/* is managed by this program
 	// everything else is routed to localhost:3000, the react dev server.
 	const proxy = require('http-proxy-middleware');
-	const apiProxy = proxy('!/api/**', { target: 'http://localhost:3000', loglevel: 'warn' });
+	const apiProxy = proxy('!/intermarche/api/**', { target: 'http://localhost:3000', loglevel: 'warn' });
 	//app.use('/login.html', apiProxy);
-	app.use('/', apiProxy);
+	app.use('/intermarche', apiProxy);
 
 } else {
 	console.log('Webmin server started in production mode.');
 	//app.use('/login.html', express.static('webmin-src/build/login.html'));
-	app.use('/', express.static('webmin-src/build'));
+	app.use('/intermarche', express.static('build'));
 }
 
-app.get('/api/account', async function(req, res) {
+app.get('/intermarche/api/account', async function(req, res) {
 	try {
 		if (!Object.keys(cookies).length) {
 			if (!await getInitialCookies()) throw new Error('could not get initial cookies');
@@ -324,7 +324,7 @@ app.get('/api/account', async function(req, res) {
 	}
 });
 
-app.get('/api/favorites', async function(req, res) {
+app.get('/intermarche/api/favorites', async function(req, res) {
 	try {
 		const favorites = await getFavorites();
 		res.json(favorites);
@@ -334,7 +334,7 @@ app.get('/api/favorites', async function(req, res) {
 	}
 });
 
-app.get('/api/cart', async function(req, res) {
+app.get('/intermarche/api/cart', async function(req, res) {
 	try {
 		const cartContents = await getCartContents();
 		res.json(cartContents);
@@ -344,7 +344,7 @@ app.get('/api/cart', async function(req, res) {
 	}
 });
 
-app.post('/api/item/:action/:id', async function(req, res) {
+app.post('/intermarche/api/item/:action/:id', async function(req, res) {
 	try {
 		const id = req.params.id;
 		const action = req.params.action;

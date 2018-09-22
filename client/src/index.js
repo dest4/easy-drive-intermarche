@@ -5,4 +5,10 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+//registerServiceWorker();
+
+if ('serviceWorker' in navigator) {
+	navigator.serviceWorker.ready.then(registration => {
+		registration.unregister();
+	});
+}
